@@ -152,12 +152,15 @@ public class MainController {
         // Bubblesort Start
         for(int i = 0; i < moddedArray.length; i++){
             loops++;
+            int a = 0;
             for (int j = 0; j < moddedArray.length-1-i; j++){
                 loops++;
                 if(moddedArray[j].getNumber() > moddedArray[j+1].getNumber()){
                     switchBalls(j, j+1);
+                    a++;
                 }
             }
+            if(a==0) break;
         }
         // Bubble Sort Ende
         time = (System.nanoTime() - time)/1000;
@@ -172,7 +175,19 @@ public class MainController {
         loops = 0;
         switches = 0;
         // Selectionsort Start
-
+        for(int i = 0; i < moddedArray.length; i++){
+            loops++;
+            int min = i;
+            for (int j = i; j < moddedArray.length; j++){
+                loops++;
+                if(moddedArray[min].getNumber() > moddedArray[j].getNumber()){
+                    min = j;
+                }
+            }
+            for(int j = min; j>i; j--){
+                switchBalls(j, j-1);
+            }
+        }
             //TODO 02: Orientiere dich für die Messung der Schleifendurchgänge und der tatsächlichen Vertauschungen an Bubblesort und implementiere Selectionsort inplace.
 
         // Selection Sort Ende
