@@ -203,6 +203,13 @@ public class MainController {
         loops = 0;
         switches = 0;
         // Insertionsort Start
+        for(int i = 0; i < moddedArray.length; i++){
+            loops++;
+            for (int j = i; j > 0 && moddedArray[j].getNumber() < moddedArray[j-1].getNumber(); j--){
+                loops++;
+                switchBalls(j, j-1);
+            }
+        }
 
             //TODO 03: Orientiere dich für die Messung der Schleifendurchgänge und der tatsächlichen Vertauschungen an Bubblesort und implementiere Insertionssort inplace.
 
