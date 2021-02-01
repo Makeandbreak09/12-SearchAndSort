@@ -132,6 +132,7 @@ public class MainController {
         time = System.nanoTime();
         loops = 0;
         // Binäre Suche Start
+        /*
         int max = moddedArray.length-1;
         int min = 0;
         lastFound = null;
@@ -147,6 +148,17 @@ public class MainController {
                 lastFound = moddedArray[(max+min)/2];
             }
         }
+         */
+        int[] a = new int[moddedArray.length];
+        for(int i = 0; i<moddedArray.length; i++){
+            a[i] = moddedArray[i].getNumber();
+        }
+        int found = whatAmIDoing(a, 0, moddedArray.length, key);
+        if(found>=0){
+            lastFound = moddedArray[whatAmIDoing(a, 0, moddedArray.length, key)];
+        }else{
+            lastFound = null;
+        }
             //TODO 01: Orientiere dich für die Messung der Schleifendurchgänge an der Linearen Suche und implementiere die Binäre Suche iterativ.
 
         // Binäre Suche Ende
@@ -154,6 +166,22 @@ public class MainController {
         if(lastFound != null){
             lastFound.setMarked(true);
         }
+    }
+
+    public int whatAmIDoing(int[] a, int left, int right, int key){
+        loops++;
+        if(left>right){
+            return -1;
+        }
+        int middle=(left+right)/2;
+        if(a[middle] == key){
+            return middle;
+        }else if(key < a[middle]){
+            return whatAmIDoing(a, left, middle-1, key);
+        }else {
+            return whatAmIDoing(a, middle+1, right, key);
+        }
+
     }
 
     /**
