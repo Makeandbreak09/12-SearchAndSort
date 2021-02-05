@@ -153,9 +153,9 @@ public class MainController {
         for(int i = 0; i<moddedArray.length; i++){
             a[i] = moddedArray[i].getNumber();
         }
-        int found = whatAmIDoing(a, 0, moddedArray.length, key);
+        int found = whatAmIDoing(a, 0, moddedArray.length-1, key);
         if(found>=0){
-            lastFound = moddedArray[whatAmIDoing(a, 0, moddedArray.length, key)];
+            lastFound = moddedArray[found];
         }else{
             lastFound = null;
         }
