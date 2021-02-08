@@ -286,6 +286,25 @@ public class MainController {
 
         //Beginn des Zaubers
             //TODO 05: Programmiere den rekursiven Quicksortalgorithmus. Halte dich an den hier vorgegeben Rahmen.
+        while (i<=j){
+            while(moddedArray[i].getNumber()<pivot){
+                i++;
+            }
+            while (moddedArray[j].getNumber()>pivot){
+                j--;
+            }
+            if(i<=j){
+                switchBalls(i, j);
+                i++;
+                j--;
+            }
+        }
+        if(start<j){
+            quicksortRecursive(start, j);
+        }
+        if(i<end){
+            quicksortRecursive(i, end);
+        }
         //Ende des Zaubers
     }
 
