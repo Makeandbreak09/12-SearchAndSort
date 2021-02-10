@@ -278,7 +278,6 @@ public class MainController {
      * Die eigentliche rekursive Quicksort-Methode.
      */
     private void quicksortRecursive(int start, int end){
-        loops++;
         int i = start;
         int j = end;
         int middle =  (i + j) / 2;
@@ -287,10 +286,13 @@ public class MainController {
         //Beginn des Zaubers
             //TODO 05: Programmiere den rekursiven Quicksortalgorithmus. Halte dich an den hier vorgegeben Rahmen.
         while (i<=j){
+            loops++;
             while(moddedArray[i].getNumber()<pivot){
+                loops++;
                 i++;
             }
             while (moddedArray[j].getNumber()>pivot){
+                loops++;
                 j--;
             }
             if(i<=j){
