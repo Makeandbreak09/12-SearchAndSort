@@ -132,23 +132,6 @@ public class MainController {
         time = System.nanoTime();
         loops = 0;
         // Binäre Suche Start
-        /*
-        int max = moddedArray.length-1;
-        int min = 0;
-        lastFound = null;
-
-        while(lastFound == null && max != min){
-            loops++;
-            if(moddedArray[(max+min)/2].getNumber() < key){
-                min = (max+min)/2+1;
-            }else if(moddedArray[(max+min)/2].getNumber() > key) {
-                max = (max + min)/2;
-            }
-            if(moddedArray[(max+min)/2].getNumber() == key){
-                lastFound = moddedArray[(max+min)/2];
-            }
-        }
-         */
         int[] a = new int[moddedArray.length];
         for(int i = 0; i<moddedArray.length; i++){
             a[i] = moddedArray[i].getNumber();
@@ -192,10 +175,10 @@ public class MainController {
         loops = 0;
         switches = 0;
         // Bubblesort Start
-        for(int i = 0; i < moddedArray.length; i++){
+        for(int i = moddedArray.length-1; i > 0; i--){
             loops++;
             int a = 0;
-            for (int j = 0; j < moddedArray.length-1-i; j++){
+            for (int j = 0; j < i; j++){
                 loops++;
                 if(moddedArray[j].getNumber() > moddedArray[j+1].getNumber()){
                     switchBalls(j, j+1);
@@ -318,12 +301,30 @@ public class MainController {
      */
     public void hashIt(DrawingPanel hashPanel){
         hashPanel.removeAllObjects();
-        hashArray = new List[1]; //Die Länge des Arrays wird durch die Anzahl prinzipiell möglicher Funktionswerte der Hash-Funktion festgelegt.
+        hashArray = new List[10]; //Die Länge des Arrays wird durch die Anzahl prinzipiell möglicher Funktionswerte der Hash-Funktion festgelegt.
+        for(int i = 0; i<hashArray.length; i++){
+            hashArray[i] = new List<Ball>();
+        }
             //TODO 04b: Nach de Implementierung der Hashfunktion müssen die Ball-Objekte gemäß der Funktion ins hashArray übertragen werden. Beachte hierbei, dass du mit Ballkopien arbeiten musst, nicht mit den Originalen.
+        for(int i = 0; i<moddedArray.length; i++) {
+            hashArray[hashFunction(moddedArray[i].getNumber())].append(moddedArray[i].getCopy());
+        }
 
         int x = 10; //Start-Koordinate des ersten anzuzeigenen Balls
         int y = 10; //Start-Koordinate des ersten anzuzeigenen Balls
             //TODO 04c: Überarbeite die Koordinaten der Ball-Objekte im hashArray für die Darstellung in der View.
+        for(int i = 0; i<hashArray.length; i++){
+            int counter = 1;
+            hashArray[i].toFirst();
+            while(hashArray[i].hasAccess()){
+                hashArray[i].getContent().setX(10+hashPanel.getWidth()*(i)/hashArray.length);
+                hashArray[i].getContent().setY(10+20*counter-1);
+                hashPanel.addObject(hashArray[i].getContent());
+
+                hashArray[i].next();
+                counter++;
+            }
+        }
     }
 
     /**
@@ -333,7 +334,7 @@ public class MainController {
      */
     private int hashFunction(int argument){
             //TODO 4a: Implementiere eine vernünftige Hashfunktion.
-        return 0;
+        return Integer.toString(argument).charAt(0)-48;
     }
 
     /**
@@ -342,6 +343,30 @@ public class MainController {
      */
     public void hashSearch(int key){
             //TODO 4d: Implementiere die Suche auf der Hashtabelle.
+        if(lastFound != null){
+            lastFound.setMarked(false);
+        }
+        time = System.nanoTime();
+        loops = 0;
+
+        hashArray[hashFunction(key)].toFirst();
+        while(hashArray[hashFunction(key)].hasAccess()){
+            loops++;
+            if(hashArray[hashFunction(key)].getContent().getNumber() == key){
+                lastFound = hashArray[hashFunction(key)].getContent();
+                break;
+            }else{
+                hashArray[hashFunction(key)].next();
+            }
+        }
+        if(!hashArray[hashFunction(key)].hasAccess()){
+            lastFound = null;
+        }
+
+        time = (System.nanoTime() - time)/1000;
+        if(lastFound != null){
+            lastFound.setMarked(true);
+        }
     }
 
     /**
