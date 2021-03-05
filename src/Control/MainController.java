@@ -334,7 +334,7 @@ public class MainController {
      */
     private int hashFunction(int argument){
             //TODO 4a: Implementiere eine vernünftige Hashfunktion.
-        return Integer.toString(argument).charAt(0)-48;
+        return argument % 10;
     }
 
     /**
@@ -349,17 +349,18 @@ public class MainController {
         time = System.nanoTime();
         loops = 0;
 
-        hashArray[hashFunction(key)].toFirst();
-        while(hashArray[hashFunction(key)].hasAccess()){
+        int hash = hashFunction(key);
+        hashArray[hash].toFirst();
+        while(hashArray[hash].hasAccess()){
             loops++;
-            if(hashArray[hashFunction(key)].getContent().getNumber() == key){
-                lastFound = hashArray[hashFunction(key)].getContent();
+            if(hashArray[hash].getContent().getNumber() == key){
+                lastFound = hashArray[hash].getContent();
                 break;
             }else{
-                hashArray[hashFunction(key)].next();
+                hashArray[hash].next();
             }
         }
-        if(!hashArray[hashFunction(key)].hasAccess()){
+        if(!hashArray[hash].hasAccess()){
             lastFound = null;
         }
 
