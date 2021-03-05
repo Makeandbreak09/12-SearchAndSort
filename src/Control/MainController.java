@@ -24,6 +24,8 @@ public class MainController {
     private Ball[] originalArray;
     private Ball[] moddedArray;
     private List<Ball>[] hashArray; //Hier handelt es sich um ein Array, das Listen verwaltet.
+    private List<Ball> originalList;
+    private List<Ball> moddedList;
 
     public MainController(){
         rng = new Random();
@@ -59,6 +61,19 @@ public class MainController {
                 x = 10;
                 y += 20;
             }
+        }
+
+        generateList();
+    }
+
+    public void generateList(){
+        originalList = new List<>();
+        moddedList = new List<>();
+
+        for(int i=0; i<originalArray.length; i++){
+            originalList.append(originalArray[i].getCopy());
+            originalList.toLast();
+            System.out.println(i+1+": "+String.valueOf(originalList.getContent().getNumber())+originalList.getContent().getCharacter());
         }
     }
 
