@@ -306,8 +306,8 @@ public class MainController {
             hashArray[i] = new List<Ball>();
         }
             //TODO 04b: Nach de Implementierung der Hashfunktion müssen die Ball-Objekte gemäß der Funktion ins hashArray übertragen werden. Beachte hierbei, dass du mit Ballkopien arbeiten musst, nicht mit den Originalen.
-        for(int i = 0; i<moddedArray.length; i++) {
-            hashArray[hashFunction(moddedArray[i].getNumber())].append(moddedArray[i].getCopy());
+        for(int i = 0; i<originalArray.length; i++) {
+            hashArray[hashFunction(originalArray[i].getNumber())].append(originalArray[i].getCopy());
         }
 
         int x = 10; //Start-Koordinate des ersten anzuzeigenen Balls
