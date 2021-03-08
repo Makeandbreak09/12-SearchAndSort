@@ -64,6 +64,7 @@ public class MainController {
         }
 
         generateList();
+        printList(originalList);
     }
 
     public void generateList(){
@@ -73,10 +74,16 @@ public class MainController {
         for(int i=0; i<originalArray.length; i++){
             originalList.append(originalArray[i].getCopy());
             originalList.toLast();
-            System.out.println(i+1+": "+String.valueOf(originalList.getContent().getNumber())+originalList.getContent().getCharacter());
         }
     }
 
+    public void printList(List<Ball> list){
+        list.toFirst();
+        for(int i=0; list.hasAccess(); i++){
+            System.out.println(i+1+": "+String.valueOf(list.getContent().getNumber())+list.getContent().getCharacter());
+            list.next();
+        }
+    }
     /**
      * Erzeugt eine frische, unsortierte Kopie des Original-Arrays.
      */
